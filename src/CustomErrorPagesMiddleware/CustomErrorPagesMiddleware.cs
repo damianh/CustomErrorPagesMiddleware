@@ -15,7 +15,6 @@
     {
         private const string ResponseStatusCodeKey = "owin.ResponseStatusCode";
         private const string ResponseBodyKey = "owin.ResponseBody";
-        private const string ServerOnSendingHeaders = "server.OnSendingHeaders";
 
         public static MidFunc UseCustomErrorPages(Action<CustomErrorPagesOptions> options)
         {
@@ -30,48 +29,37 @@
                 next =>
                     async env =>
                     {
-                        var onSendingHeaders = env.Get<Action<Action<object>, object>>(ServerOnSendingHeaders);
-                        if (onSendingHeaders != null)
-                        {
-                            var responseBody = env.Get<Stream>(ResponseBodyKey);
-                            var streamWrapper = new StreamWrapper(responseBody, async () =>
-                            {
-                                var statusCode = env.Get<int?>(ResponseStatusCodeKey) ?? 200;
-                                AppFunc errorPagehandler = errorPagesOptions.GetHandler(statusCode);
-                                if (errorPagehandler != null)
-                                {
-                                    env[ResponseBodyKey] = responseBody;
-                                    await errorPagehandler(env);
-                                    return false;
-                                }
-                                return true;
-                            });
-                            env[ResponseBodyKey] = streamWrapper;
-                        }
+                        var responseBody = env.Get<Stream>(ResponseBodyKey);
+                        var streamWrapper = new StreamWrapper(responseBody);
+                        env[ResponseBodyKey] = streamWrapper;
 
                         await next(env);
+
+                        if (!streamWrapper.WriteOccured)
+                        {
+                            var statusCode = env.Get<int?>(ResponseStatusCodeKey) ?? 200;
+                            AppFunc errorPagehandler = errorPagesOptions.GetHandler(statusCode);
+                            if (errorPagehandler != null)
+                            {
+                                await errorPagehandler(env);
+                            }
+                        }
                     };
         }
 
         private class StreamWrapper : Stream
         {
             private readonly Stream _innerStream;
-            private readonly Func<Task<bool>> _shouldWrite;
+            private bool _writeOccured;
 
-            public StreamWrapper(Stream innerStream, Func<Task<bool>> onFirstWrite)
+            public bool WriteOccured
+            {
+                get { return _writeOccured; }
+            }
+
+            public StreamWrapper(Stream innerStream)
             {
                 _innerStream = innerStream;
-
-                bool? shouldWrite = null;
-
-                _shouldWrite = (async () =>
-                {
-                    if (!shouldWrite.HasValue)
-                    {
-                        shouldWrite = await onFirstWrite();
-                    }
-                    return shouldWrite.Value;
-                });
             }
 
             public override void Flush()
@@ -96,10 +84,8 @@
 
             public override void Write(byte[] buffer, int offset, int count)
             {
-                if (_shouldWrite().Result)
-                {
-                    _innerStream.Write(buffer, offset, count);
-                }
+                _writeOccured = true;
+                _innerStream.Write(buffer, offset, count);
             }
 
             public override bool CanRead
@@ -130,10 +116,8 @@
 
             public override async Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
             {
-                if (await _shouldWrite())
-                {
-                    await _innerStream.WriteAsync(buffer, offset, count, cancellationToken);
-                }
+                _writeOccured = true;
+                await _innerStream.WriteAsync(buffer, offset, count, cancellationToken);
             }
         }
     }
