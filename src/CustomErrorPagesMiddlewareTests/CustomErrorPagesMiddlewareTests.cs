@@ -1,6 +1,4 @@
-﻿using Microsoft.Owin.Hosting;
-
-namespace CustomErrorPagesMiddlewareTests
+﻿namespace CustomErrorPagesMiddlewareTests
 {
     using System;
     using System.Net;
@@ -41,20 +39,6 @@ namespace CustomErrorPagesMiddlewareTests
                 response.StatusCode.Should().Be(HttpStatusCode.NotFound);
                 content.Should().NotEndWith(custom404Message);
             }
-
-            const string url = "http://localhost:5555";
-            using (WebApp.Start(url, configuration))
-            {
-                var httpClient = new HttpClient
-                {
-                    BaseAddress = new Uri(url)
-                };
-                HttpResponseMessage response = await httpClient.GetAsync("/");
-                string content = await response.Content.ReadAsStringAsync();
-
-                response.StatusCode.Should().Be(HttpStatusCode.NotFound);
-                content.Should().NotEndWith(custom404Message);
-            }
         }
 
         [Fact]
@@ -76,20 +60,6 @@ namespace CustomErrorPagesMiddlewareTests
             using (var server = TestServer.Create(configuration))
             {
                 HttpResponseMessage response = await server.CreateRequest("/").GetAsync();
-                string content = await response.Content.ReadAsStringAsync();
-
-                response.StatusCode.Should().Be(HttpStatusCode.NotFound);
-                content.Should().Be(custom404Message);
-            }
-
-            const string url = "http://localhost:5556";
-            using (WebApp.Start(url, configuration))
-            {
-                var httpClient = new HttpClient
-                {
-                    BaseAddress = new Uri(url)
-                };
-                HttpResponseMessage response = await httpClient.GetAsync("/");
                 string content = await response.Content.ReadAsStringAsync();
 
                 response.StatusCode.Should().Be(HttpStatusCode.NotFound);
@@ -131,20 +101,6 @@ namespace CustomErrorPagesMiddlewareTests
                 response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
                 content.Should().Be("Custom 500");
             }
-
-            const string url = "http://localhost:5557";
-            using (WebApp.Start(url, configuration))
-            {
-                var httpClient = new HttpClient
-                {
-                    BaseAddress = new Uri(url)
-                };
-                HttpResponseMessage response = await httpClient.GetAsync("/");
-                string content = await response.Content.ReadAsStringAsync();
-
-                response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
-                content.Should().Be("Custom 500");
-            }
         }
 
         [Fact]
@@ -178,20 +134,6 @@ namespace CustomErrorPagesMiddlewareTests
             using (var server = TestServer.Create(configuration))
             {
                 HttpResponseMessage response = await server.CreateRequest("/").GetAsync();
-                string content = await response.Content.ReadAsStringAsync();
-
-                response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
-                content.Should().Be("Error");
-            }
-
-            const string url = "http://localhost:5558";
-            using (WebApp.Start(url, configuration))
-            {
-                var httpClient = new HttpClient
-                {
-                    BaseAddress = new Uri(url)
-                };
-                HttpResponseMessage response = await httpClient.GetAsync("/");
                 string content = await response.Content.ReadAsStringAsync();
 
                 response.StatusCode.Should().Be(HttpStatusCode.InternalServerError);
