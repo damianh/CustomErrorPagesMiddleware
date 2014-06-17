@@ -7,8 +7,8 @@
     <ProjectGuid>{A253814C-2994-4EEE-95DE-809A0501A343}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CustomErrorPagesMiddlewareTests</RootNamespace>
-    <AssemblyName>CustomErrorPagesMiddlewareTests</AssemblyName>
+    <RootNamespace>StatusCodeHandlersMiddleware</RootNamespace>
+    <AssemblyName>StatusCodeHandlersMiddleware.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -61,15 +61,15 @@
   <ItemGroup>
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CustomErrorPagesMiddlewareTests.cs" />
+    <Compile Include="StatusCodeHandlersMiddlewareTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CustomErrorPagesMiddleware\CustomErrorPagesMiddleware.csproj">
+    <ProjectReference Include="..\StatusCodeHandlersMiddleware\StatusCodeHandlersMiddleware.csproj">
       <Project>{7DA49DFE-EC47-4920-B940-7905E091A8FA}</Project>
-      <Name>CustomErrorPagesMiddleware</Name>
+      <Name>StatusCodeHandlersMiddleware</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

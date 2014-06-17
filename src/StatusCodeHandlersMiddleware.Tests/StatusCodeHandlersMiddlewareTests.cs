@@ -1,25 +1,24 @@
-﻿namespace CustomErrorPagesMiddlewareTests
+﻿namespace StatusCodeHandlersMiddleware
 {
     using System;
     using System.Net;
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
-    using CustomErrorPagesMiddleware;
     using FluentAssertions;
     using Microsoft.Owin;
     using Microsoft.Owin.Testing;
     using Owin;
     using Xunit;
 
-    public class CustomErrorPagesMiddlewareTests
+    public class StatusCodeHandlersMiddlewareTests
     {
         [Fact]
         public async Task When_middleware_writes_body_then_custom_handler_for_status_code_is_not_invoked()
         {
             const string custom404Message = "Custom 404";
             Action<IAppBuilder> configuration = app => app
-                .Use(CustomErrorPagesMiddleware.UseCustomErrorPages(opts =>
+                .Use(StatusCodeHandlersMiddleware.UseCustomErrorPages(opts =>
                     opts.WithErrorPage(404, async env =>
                     {
                         await new OwinResponse(env).WriteAsync(custom404Message);
@@ -46,7 +45,7 @@
         {
             const string custom404Message = "Custom 404";
             Action<IAppBuilder> configuration = app => app
-                .Use(CustomErrorPagesMiddleware.UseCustomErrorPages(opts =>
+                .Use(StatusCodeHandlersMiddleware.UseCustomErrorPages(opts =>
                     opts.WithErrorPage(404, async env =>
                     {
                         await new OwinResponse(env).WriteAsync(custom404Message);
@@ -71,7 +70,7 @@
         public async Task With_custom_exception_handler_that_doesnt_write_a_body_then_should_use_custom_handler()
         {
             Action<IAppBuilder> configuration = app => app
-                .Use(CustomErrorPagesMiddleware.UseCustomErrorPages(opts =>
+                .Use(StatusCodeHandlersMiddleware.UseCustomErrorPages(opts =>
                     opts.WithErrorPage(500, async env =>
                     {
                         await new OwinResponse(env).WriteAsync("Custom 500");
@@ -107,7 +106,7 @@
         public async Task With_custom_exception_handler_that_writes_a_body_then_should_not_use_custom_handler()
         {
             Action<IAppBuilder> configuration = app => app
-                .Use(CustomErrorPagesMiddleware.UseCustomErrorPages(opts =>
+                .Use(StatusCodeHandlersMiddleware.UseCustomErrorPages(opts =>
                     opts.WithErrorPage(500, async env =>
                     {
                         await new OwinResponse(env).WriteAsync("Custom 500");

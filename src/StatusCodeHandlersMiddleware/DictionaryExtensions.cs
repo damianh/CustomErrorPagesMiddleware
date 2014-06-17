@@ -1,4 +1,4 @@
-namespace CustomErrorPagesMiddleware
+namespace StatusCodeHandlersMiddleware
 {
     using System.Collections.Generic;
 

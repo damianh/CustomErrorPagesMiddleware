@@ -1,6 +1,7 @@
-﻿namespace CustomErrorPagesMiddleware
+﻿namespace StatusCodeHandlersMiddleware
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
@@ -11,19 +12,20 @@
         System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>
         >;
 
-    public static class CustomErrorPagesMiddleware
+
+    public static class StatusCodeHandlersMiddleware
     {
         private const string ResponseStatusCodeKey = "owin.ResponseStatusCode";
         private const string ResponseBodyKey = "owin.ResponseBody";
 
-        public static MidFunc UseCustomErrorPages(Action<CustomErrorPagesOptions> options)
+        public static MidFunc UseCustomErrorPages(Action<StatusCodeHandlersOptions> options)
         {
-            var errorPagesOptions = new CustomErrorPagesOptions();
+            var errorPagesOptions = new StatusCodeHandlersOptions();
             options(errorPagesOptions);
             return UseCustomErrorPages(errorPagesOptions);
         }
 
-        public static MidFunc UseCustomErrorPages(CustomErrorPagesOptions errorPagesOptions)
+        public static MidFunc UseCustomErrorPages(StatusCodeHandlersOptions errorPagesOptions)
         {
             return
                 next =>
