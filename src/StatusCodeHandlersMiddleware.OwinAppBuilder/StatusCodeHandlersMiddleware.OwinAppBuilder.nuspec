@@ -18,7 +18,7 @@
     </dependencies>
     </metadata>
     <files>
-        <file src="bin\Release\StatusCodeHandlersMiddleware.OwinAppBuilder.dll" target="lib\net450" />
-        <file src="bin\Release\StatusCodeHandlersMiddleware.OwinAppBuilder.xml" target="lib\net450" />
+        <file src="bin\Release\StatusCodeHandlersMiddleware.OwinAppBuilder.dll" target="lib\net45" />
+        <file src="bin\Release\StatusCodeHandlersMiddleware.OwinAppBuilder.xml" target="lib\net45" />
     </files>
 </package>
