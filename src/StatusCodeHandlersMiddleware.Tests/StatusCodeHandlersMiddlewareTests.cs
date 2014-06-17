@@ -18,7 +18,7 @@
         {
             const string custom404Message = "Custom 404";
             Action<IAppBuilder> configuration = app => app
-                .Use(StatusCodeHandlersMiddleware.UseCustomErrorPages(opts =>
+                .Use(StatusCodeHandlersMiddleware.UseStatusCodeHandlers(opts =>
                     opts.WithHandler(404, async env =>
                     {
                         await new OwinResponse(env).WriteAsync(custom404Message);
@@ -45,7 +45,7 @@
         {
             const string custom404Message = "Custom 404";
             Action<IAppBuilder> configuration = app => app
-                .Use(StatusCodeHandlersMiddleware.UseCustomErrorPages(opts =>
+                .Use(StatusCodeHandlersMiddleware.UseStatusCodeHandlers(opts =>
                     opts.WithHandler(404, async env =>
                     {
                         await new OwinResponse(env).WriteAsync(custom404Message);
@@ -70,7 +70,7 @@
         public async Task With_custom_exception_handler_that_doesnt_write_a_body_then_should_use_custom_handler()
         {
             Action<IAppBuilder> configuration = app => app
-                .Use(StatusCodeHandlersMiddleware.UseCustomErrorPages(opts =>
+                .Use(StatusCodeHandlersMiddleware.UseStatusCodeHandlers(opts =>
                     opts.WithHandler(500, async env =>
                     {
                         await new OwinResponse(env).WriteAsync("Custom 500");
@@ -106,7 +106,7 @@
         public async Task With_custom_exception_handler_that_writes_a_body_then_should_not_use_custom_handler()
         {
             Action<IAppBuilder> configuration = app => app
-                .Use(StatusCodeHandlersMiddleware.UseCustomErrorPages(opts =>
+                .Use(StatusCodeHandlersMiddleware.UseStatusCodeHandlers(opts =>
                     opts.WithHandler(500, async env =>
                     {
                         await new OwinResponse(env).WriteAsync("Custom 500");

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>StatusCodeHandlersMiddleware.OwinAppBuilder</id>
+        <version>0.0.0.0</version>
+        <authors>Damian Hickey</authors>
+        <owners>Damian Hickey</owners>
+        <projectUrl>https://github.com/damianh/StatusCodeHandlersMiddleware</projectUrl>
+    <licenseUrl>https://github.com/damianh/StatusCodeHandlersMiddleware/blob/master/LICENSE</licenseUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <title>Status Code Handlers Middleware AppBuilder Integration</title>
+        <description>Integration package for Status Code Handlers Middleware that provides extension methods for (the now deprecated) IAppBuilder from owin.dll</description>
+        <tags>owin, websockets, embedded</tags>
+        <frameworkAssemblies/>
+        <dependencies>
+      <dependency id="StatusCodeHandlersMiddleware" version="(1.0,2.0]"/>
+      <dependency id="Owin" version="(1.0,2.0]"/>
+    </dependencies>
+    </metadata>
+    <files>
+        <file src="bin\Release\StatusCodeHandlersMiddleware.OwinAppBuilder.dll" target="lib\net450" />
+        <file src="bin\Release\StatusCodeHandlersMiddleware.OwinAppBuilder.xml" target="lib\net450" />
+    </files>
+</package>

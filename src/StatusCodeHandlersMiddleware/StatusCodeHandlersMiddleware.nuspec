@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>StatusCodeHandlersMiddleware</id>
+        <version>0.0.0.0</version>
+        <authors>Damian Hickey</authors>
+        <owners>Damian Hickey</owners>
+        <projectUrl>https://github.com/damianh/StatusCodeHandlersMiddleware</projectUrl>
+		<licenseUrl>https://github.com/damianh/StatusCodeHandlersMiddleware/blob/master/LICENSE</licenseUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <title>Status Code Handlers Middleware</title>
+        <description>
+            Middleware to allow you to define custom handlers for specified status codes in OWIN pipeline. Can be used to create
+            application-wide error pages for 404 Not Found and similar.
+        </description>
+        <tags>owin, middleware, http</tags>
+        <frameworkAssemblies/>
+        <dependencies/>
+    </metadata>
+    <files>
+        <file src="bin\Release\StatusCodeHandlersMiddleware.dll" target="lib\net45" />
+        <file src="bin\Release\StatusCodeHandlersMiddleware.xml" target="lib\net45" />
+    </files>
+</package>
