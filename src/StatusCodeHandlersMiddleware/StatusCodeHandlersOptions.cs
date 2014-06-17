@@ -5,11 +5,20 @@
     using System.Threading.Tasks;
     using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
 
+    /// <summary>
+    /// Represents options to configure the <see cref="StatusCodeHandlersMiddleware"/>.
+    /// </summary>
     public class StatusCodeHandlersOptions
     {
         private readonly Dictionary<int, AppFunc> _statusCodeHandlers = new Dictionary<int, AppFunc>();
 
-        public StatusCodeHandlersOptions WithErrorPage(int statusCode, AppFunc handler)
+        /// <summary>
+        /// Add the handler for the specified HTTP status code.
+        /// </summary>
+        /// <param name="statusCode">The status code.</param>
+        /// <param name="handler">The handler.</param>
+        /// <returns>The current <see cref="StatusCodeHandlersOptions"/></returns>
+        public StatusCodeHandlersOptions WithHandler(int statusCode, AppFunc handler)
         {
             _statusCodeHandlers.Add(statusCode, handler);
             return this;

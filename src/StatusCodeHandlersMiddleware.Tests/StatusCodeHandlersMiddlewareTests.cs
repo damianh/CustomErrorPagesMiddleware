@@ -19,7 +19,7 @@
             const string custom404Message = "Custom 404";
             Action<IAppBuilder> configuration = app => app
                 .Use(StatusCodeHandlersMiddleware.UseCustomErrorPages(opts =>
-                    opts.WithErrorPage(404, async env =>
+                    opts.WithHandler(404, async env =>
                     {
                         await new OwinResponse(env).WriteAsync(custom404Message);
                     })))
@@ -46,7 +46,7 @@
             const string custom404Message = "Custom 404";
             Action<IAppBuilder> configuration = app => app
                 .Use(StatusCodeHandlersMiddleware.UseCustomErrorPages(opts =>
-                    opts.WithErrorPage(404, async env =>
+                    opts.WithHandler(404, async env =>
                     {
                         await new OwinResponse(env).WriteAsync(custom404Message);
                     })))
@@ -71,7 +71,7 @@
         {
             Action<IAppBuilder> configuration = app => app
                 .Use(StatusCodeHandlersMiddleware.UseCustomErrorPages(opts =>
-                    opts.WithErrorPage(500, async env =>
+                    opts.WithHandler(500, async env =>
                     {
                         await new OwinResponse(env).WriteAsync("Custom 500");
                     })))
@@ -81,7 +81,7 @@
                     {
                         await next();
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         context.Response.StatusCode = 500;
                         context.Response.ReasonPhrase = "Internal Server Error";
@@ -107,7 +107,7 @@
         {
             Action<IAppBuilder> configuration = app => app
                 .Use(StatusCodeHandlersMiddleware.UseCustomErrorPages(opts =>
-                    opts.WithErrorPage(500, async env =>
+                    opts.WithHandler(500, async env =>
                     {
                         await new OwinResponse(env).WriteAsync("Custom 500");
                     })))

@@ -11,20 +11,35 @@
         System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>
         >;
 
-
+    /// <summary>
+    ///     OWIN middleware to allow a custom handler for specified status codes, when chile middleware has set a code but NOT written a body.
+    /// </summary>
+    /// <remarks>
+    ///     A handler is only invoked if child middleware has set a status code but not written anything to the response body stream.
+    /// </remarks>
     public static class StatusCodeHandlersMiddleware
     {
         private const string ResponseStatusCodeKey = "owin.ResponseStatusCode";
         private const string ResponseBodyKey = "owin.ResponseBody";
 
-        public static MidFunc UseCustomErrorPages(Action<StatusCodeHandlersOptions> options)
+        /// <summary>
+        /// Use the status code handlers middleware in an OWIN pipeline.
+        /// </summary>
+        /// <param name="configureOptions">A delegate to configure the middleware options.</param>
+        /// <returns>An OWIN middleware function.</returns>
+        public static MidFunc UseStatusCodeHandlers(Action<StatusCodeHandlersOptions> configureOptions)
         {
-            var errorPagesOptions = new StatusCodeHandlersOptions();
-            options(errorPagesOptions);
-            return UseCustomErrorPages(errorPagesOptions);
+            var options = new StatusCodeHandlersOptions();
+            configureOptions(options);
+            return UseStatusCodeHandlers(options);
         }
 
-        public static MidFunc UseCustomErrorPages(StatusCodeHandlersOptions configureOptions)
+        /// <summary>
+        /// Use the status code handlers middleware in an OWIN pipeline.
+        /// </summary>
+        /// <param name="options">The middleware options.</param>
+        /// <returns>An OWIN middleware function.</returns>
+        public static MidFunc UseStatusCodeHandlers(StatusCodeHandlersOptions options)
         {
             return
                 next =>
@@ -39,10 +54,10 @@
                         if (!streamWrapper.WriteOccured)
                         {
                             var statusCode = env.Get<int?>(ResponseStatusCodeKey) ?? 200;
-                            AppFunc errorPagehandler = configureOptions.GetHandler(statusCode);
-                            if (errorPagehandler != null)
+                            AppFunc handler = options.GetHandler(statusCode);
+                            if (handler != null)
                             {
-                                await errorPagehandler(env);
+                                await handler(env);
                             }
                         }
                     };

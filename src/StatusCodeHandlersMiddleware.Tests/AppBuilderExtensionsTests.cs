@@ -15,7 +15,7 @@
         public async Task When_added_to_app_builder_pipeline_should_invoke_handler()
         {
             const string custom404 = "Custom 404";
-            using (var server = TestServer.Create(app => app.UseStatusCodeHandlers(opts => opts.WithErrorPage(404,
+            using (var server = TestServer.Create(app => app.UseStatusCodeHandlers(opts => opts.WithHandler(404,
                 env =>
                 {
                     var bytes = Encoding.UTF8.GetBytes(custom404);
