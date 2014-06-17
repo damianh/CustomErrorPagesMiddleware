@@ -19,4 +19,4 @@ An asp.net vNext builder integration package will be forthcoming.
 
 #### Using
 
-See [the tests](https://github.com/damianh/WebSocketsMiddleware/blob/master/src/StatusCodeHandlersMiddleware.Tests/StatusCodeHandlersMiddleware.cs) as examples of usage.
+See [the tests](https://github.com/damianh/StatusCodeHandlersMiddleware/blob/master/src/StatusCodeHandlersMiddleware.Tests/StatusCodeHandlersMiddleware.cs) as examples of usage.
