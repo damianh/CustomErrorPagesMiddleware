@@ -1,7 +1,6 @@
 ﻿namespace StatusCodeHandlersMiddleware
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using System.Threading;
     using System.Threading.Tasks;
@@ -25,7 +24,7 @@
             return UseCustomErrorPages(errorPagesOptions);
         }
 
-        public static MidFunc UseCustomErrorPages(StatusCodeHandlersOptions errorPagesOptions)
+        public static MidFunc UseCustomErrorPages(StatusCodeHandlersOptions configureOptions)
         {
             return
                 next =>
@@ -40,7 +39,7 @@
                         if (!streamWrapper.WriteOccured)
                         {
                             var statusCode = env.Get<int?>(ResponseStatusCodeKey) ?? 200;
-                            AppFunc errorPagehandler = errorPagesOptions.GetHandler(statusCode);
+                            AppFunc errorPagehandler = configureOptions.GetHandler(statusCode);
                             if (errorPagehandler != null)
                             {
                                 await errorPagehandler(env);

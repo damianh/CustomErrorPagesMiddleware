@@ -36,6 +36,9 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="StatusCodeHandlersMiddleware.cs" />
     <Compile Include="StatusCodeHandlersOptions.cs" />
     <Compile Include="DictionaryExtensions.cs" />
