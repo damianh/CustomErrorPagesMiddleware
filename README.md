@@ -20,3 +20,8 @@ An asp.net vNext builder integration package will be forthcoming.
 #### Using
 
 See [the tests](https://github.com/damianh/StatusCodeHandlersMiddleware/blob/master/src/StatusCodeHandlersMiddleware.Tests/StatusCodeHandlersMiddlewareTests.cs) as examples of usage.
+
+
+#### Help
+
+[@randompunter](https://twitter.com/randompunter) or [OWIN room on Jabbr](https://jabbr.net/#/rooms/owin)
