@@ -13,9 +13,9 @@
         <tags>owin, websockets, embedded</tags>
         <frameworkAssemblies/>
         <dependencies>
-      <dependency id="StatusCodeHandlersMiddleware" version="[1.0,2.0)"/>
-      <dependency id="Owin" version="[1.0,2.0)"/>
-    </dependencies>
+           <dependency id="StatusCodeHandlersMiddleware" version="[1.0,2.0)"/>
+           <dependency id="Owin" version="[1.0,2.0)"/>
+        </dependencies>
     </metadata>
     <files>
         <file src="bin\Release\StatusCodeHandlersMiddleware.OwinAppBuilder.dll" target="lib\net45" />
