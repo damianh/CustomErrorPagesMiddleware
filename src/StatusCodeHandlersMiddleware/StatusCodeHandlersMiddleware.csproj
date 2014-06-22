@@ -41,7 +41,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="StatusCodeHandlersMiddleware.cs" />
+    <Compile Include="StatusCodeHandlers.cs" />
     <Compile Include="StatusCodeHandlersOptions.cs" />
     <Compile Include="DictionaryExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

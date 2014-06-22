@@ -16,7 +16,7 @@
             Guard.EnsureNotNull(appBuilder, "appBuilder");
             Guard.EnsureNotNull(options, "options");
             
-            appBuilder.Use(StatusCodeHandlersMiddleware.UseStatusCodeHandlers(options));
+            appBuilder.Use(StatusCodeHandlers.UseStatusCodeHandlers(options));
             return appBuilder;
         }
 

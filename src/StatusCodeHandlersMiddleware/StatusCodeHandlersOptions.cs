@@ -6,7 +6,7 @@
     using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
 
     /// <summary>
-    /// Represents options to configure the <see cref="StatusCodeHandlersMiddleware"/>.
+    /// Represents options to configure the <see cref="StatusCodeHandlers"/>.
     /// </summary>
     public class StatusCodeHandlersOptions
     {
